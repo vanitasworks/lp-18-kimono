@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>着付け教室 結（むすび） | 日本橋</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --beni: #b5323c;
+      --kon: #1a2744;
+      --kihada: #f5e6c4;
+      --washi: #faf6ee;
+      --cha: #6b4c2c;
+      --hai: #888;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif JP', serif;
+      background: var(--washi);
+      color: var(--kon);
+      line-height: 1.9;
+    }
+
+    /* ===== JAPANESE PATTERN HEADER ===== */
+    .pattern-bar {
+      height: 8px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--beni) 0px, var(--beni) 12px,
+        var(--kon) 12px, var(--kon) 24px,
+        var(--kihada) 24px, var(--kihada) 36px,
+        var(--kon) 36px, var(--kon) 48px
+      );
+    }
+
+    nav {
+      background: var(--kon); color: white;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 56px; height: 72px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 16px;
+    }
+    .nav-logo-kanji { font-size: 1.8rem; color: var(--kihada); line-height: 1; }
+    .nav-logo-text { font-size: 0.7rem; letter-spacing: 0.25em; opacity: 0.6; }
+    .nav-right { display: flex; align-items: center; gap: 32px; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: 0.75rem; letter-spacing: 0.2em; color: rgba(255,255,255,0.6); transition: color 0.3s; }
+    .nav-links a:hover { color: var(--kihada); }
+    .nav-cta { border: 1px solid var(--kihada); color: var(--kihada); padding: 8px 20px; text-decoration: none; font-size: 0.72rem; letter-spacing: 0.2em; transition: all 0.3s; }
+    .nav-cta:hover { background: var(--kihada); color: var(--kon); }
+
+    /* ===== HERO: VERTICAL JAPANESE ===== */
+    .hero {
+      min-height: calc(100vh - 80px);
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .hero-left {
+      background: var(--kon); color: white;
+      padding: 80px 64px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      position: relative; overflow: hidden;
+    }
+    /* Mon (family crest) decoration */
+    .hero-left::before {
+      content: '家';
+      position: absolute; top: 40px; right: 40px;
+      font-size: 12rem; opacity: 0.04; line-height: 1;
+      color: white;
+    }
+    .hero-vertical-title {
+      writing-mode: vertical-rl; text-orientation: mixed;
+      font-size: clamp(3rem, 7vw, 6rem); font-weight: 400;
+      letter-spacing: 0.1em; line-height: 1.4;
+      flex: 1; display: flex; align-items: center;
+    }
+    .hero-v-accent { color: var(--beni); }
+    .hero-bottom { }
+    .hero-en { font-family: 'Helvetica Neue', sans-serif; font-size: 0.65rem; letter-spacing: 0.5em; opacity: 0.4; display: block; margin-bottom: 16px; }
+    .hero-desc { font-size: 0.85rem; opacity: 0.65; line-height: 2.2; max-width: 320px; }
+    .hero-right { position: relative; }
+    .hero-image { width: 100%; height: 100%; background: linear-gradient(160deg, var(--kihada) 0%, #e8d4b0 100%); display: flex; align-items: center; justify-content: center; font-size: 12rem; }
+    .hero-cta-block {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: var(--beni); padding: 28px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .hero-cta-text { color: white; font-size: 0.9rem; letter-spacing: 0.1em; }
+    .hero-cta-text small { display: block; font-size: 0.7rem; opacity: 0.7; margin-top: 4px; }
+    .btn-kihada { display: inline-block; padding: 12px 28px; background: var(--kihada); color: var(--kon); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.2em; transition: all 0.3s; }
+    .btn-kihada:hover { background: white; }
+
+    /* ===== SEASONAL STRIP ===== */
+    .seasonal { background: var(--kihada); border-top: 2px solid var(--cha); border-bottom: 2px solid var(--cha); padding: 24px 56px; display: flex; align-items: center; gap: 40px; }
+    .seasonal-label { font-size: 0.65rem; letter-spacing: 0.4em; color: var(--cha); white-space: nowrap; }
+    .seasonal-items { display: flex; gap: 32px; }
+    .seasonal-item { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; }
+    .seasonal-item::before { content: '◆'; color: var(--beni); font-size: 0.5rem; }
+
+    /* ===== COURSES: TATAMI LAYOUT ===== */
+    .courses { padding: 100px 56px; }
+    .courses-header { margin-bottom: 80px; display: flex; gap: 48px; align-items: flex-end; }
+    .courses-header h2 { font-size: clamp(1.8rem, 4vw, 3.5rem); font-weight: 400; letter-spacing: 0.1em; }
+    .courses-header .en { font-family: 'Helvetica Neue', sans-serif; font-size: 0.65rem; letter-spacing: 0.5em; color: var(--hai); padding-bottom: 16px; }
+    .course-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .course-card { background: white; padding: 48px 36px; position: relative; overflow: hidden; transition: all 0.3s; }
+    .course-card:hover { background: var(--kon); color: white; }
+    .course-card:hover .course-price,
+    .course-card:hover .course-duration { color: var(--kihada); }
+    .course-card:hover .course-desc { color: rgba(255,255,255,0.65); }
+    .course-card::before {
+      content: attr(data-num); position: absolute; top: -20px; right: 16px;
+      font-size: 6rem; font-weight: 900; opacity: 0.04; color: var(--kon); line-height: 1;
+    }
+    .course-card:hover::before { color: white; opacity: 0.06; }
+    .course-season { font-size: 0.65rem; letter-spacing: 0.3em; color: var(--beni); margin-bottom: 16px; }
+    .course-card:hover .course-season { color: #e87070; }
+    .course-name { font-size: 1.2rem; margin-bottom: 8px; }
+    .course-price { font-size: 1.3rem; color: var(--cha); margin-bottom: 4px; }
+    .course-duration { font-size: 0.75rem; color: var(--hai); margin-bottom: 20px; }
+    .course-desc { font-size: 0.82rem; color: var(--hai); line-height: 1.9; }
+
+    /* ===== TEACHER: CLASSIC ===== */
+    .teacher { padding: 100px 56px; background: var(--kon); color: white; display: grid; grid-template-columns: 1fr 1.5fr; gap: 80px; align-items: center; }
+    .teacher-image { aspect-ratio: 3/4; background: #2a3a5c; display: flex; align-items: center; justify-content: center; font-size: 8rem; }
+    .teacher-en { font-family: 'Helvetica Neue', sans-serif; font-size: 0.65rem; letter-spacing: 0.5em; opacity: 0.4; display: block; margin-bottom: 12px; }
+    .teacher-name { font-size: 2rem; font-weight: 400; margin-bottom: 4px; letter-spacing: 0.15em; }
+    .teacher-title { font-size: 0.75rem; letter-spacing: 0.25em; color: var(--kihada); opacity: 0.7; margin-bottom: 40px; }
+    .teacher-career { list-style: none; font-size: 0.82rem; color: rgba(255,255,255,0.55); line-height: 2.4; margin-bottom: 40px; padding-left: 16px; border-left: 2px solid var(--beni); }
+    .teacher-message { font-size: 0.88rem; color: rgba(255,255,255,0.7); line-height: 2.4; }
+
+    /* ===== GALLERY: KINUAZAMI ===== */
+    .gallery { padding: 80px 0; overflow: hidden; }
+    .gallery-strip { display: flex; gap: 12px; padding: 0 56px; }
+    .gallery-item { flex-shrink: 0; width: 240px; height: 320px; background: linear-gradient(135deg, #e8d4b0, #c8b090); display: flex; align-items: center; justify-content: center; font-size: 6rem; border-radius: 8px; }
+
+    /* ===== VOICE ===== */
+    .voice { padding: 100px 56px; background: var(--kihada); }
+    .voice-header { text-align: center; margin-bottom: 72px; }
+    .voice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 960px; margin: 0 auto; }
+    .voice-card { background: var(--washi); padding: 40px 28px; position: relative; }
+    .voice-card::before { content: '「'; position: absolute; top: 12px; left: 16px; font-size: 3rem; color: var(--beni); opacity: 0.2; font-family: serif; line-height: 1; }
+    .voice-text { font-size: 0.85rem; line-height: 2.2; margin-bottom: 20px; position: relative; z-index: 1; }
+    .voice-meta { font-size: 0.72rem; color: var(--hai); }
+
+    /* ===== ACCESS ===== */
+    .access { padding: 80px 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .access h2 { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 400; letter-spacing: 0.1em; margin-bottom: 48px; }
+    .access-table { width: 100%; border-collapse: collapse; }
+    .access-table tr { border-bottom: 1px solid var(--kihada); }
+    .access-table th { text-align: left; padding: 16px 0; font-size: 0.72rem; letter-spacing: 0.2em; color: var(--beni); font-weight: 400; width: 30%; }
+    .access-table td { padding: 16px 0; font-size: 0.88rem; }
+    .map-area { background: var(--kihada); height: 280px; display: flex; align-items: center; justify-content: center; color: var(--hai); font-size: 0.82rem; }
+
+    /* ===== CTA ===== */
+    .cta { background: var(--beni); color: white; padding: 100px 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .cta h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 400; margin-bottom: 24px; letter-spacing: 0.1em; line-height: 1.5; }
+    .cta p { opacity: 0.8; font-size: 0.88rem; line-height: 2.2; margin-bottom: 48px; }
+    .btn-white-border { display: inline-block; padding: 16px 40px; border: 1px solid white; color: white; text-decoration: none; font-size: 0.78rem; letter-spacing: 0.3em; transition: all 0.4s; }
+    .btn-white-border:hover { background: white; color: var(--beni); }
+    .cta-aside { }
+    .cta-aside-item { border-bottom: 1px solid rgba(255,255,255,0.2); padding: 24px 0; }
+    .cta-aside-label { font-size: 0.65rem; letter-spacing: 0.35em; opacity: 0.6; margin-bottom: 6px; }
+    .cta-aside-value { font-size: 1rem; }
+
+    .pattern-bar-bottom { height: 8px; background: repeating-linear-gradient(90deg, var(--kihada) 0px, var(--kihada) 12px, var(--beni) 12px, var(--beni) 24px, var(--kon) 24px, var(--kon) 36px, var(--beni) 36px, var(--beni) 48px); }
+
+    footer { background: var(--kon); color: rgba(255,255,255,0.3); text-align: center; padding: 28px; font-size: 0.72rem; letter-spacing: 0.15em; }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { min-height: 60vh; padding: 60px 24px; }
+      .hero-vertical-title { writing-mode: horizontal-tb; font-size: 3rem; }
+      .hero-image { height: 280px; }
+      .seasonal { flex-direction: column; gap: 16px; padding: 24px; }
+      .courses, .teacher, .voice, .access, .cta { padding: 70px 24px; }
+      .course-grid { grid-template-columns: 1fr; }
+      .teacher { grid-template-columns: 1fr; gap: 40px; }
+      .voice-grid { grid-template-columns: 1fr; }
+      .access { grid-template-columns: 1fr; gap: 40px; }
+      .cta { grid-template-columns: 1fr; gap: 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="pattern-bar"></div>
+
+  <nav>
+    <div class="nav-logo">
+      <span class="nav-logo-kanji">結</span>
+      <div>
+        <div style="font-size:0.88rem;letter-spacing:0.1em;">着付け教室 結</div>
+        <div class="nav-logo-text">MUSUBI KITSUKE SCHOOL</div>
+      </div>
+    </div>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#">コース</a></li>
+        <li><a href="#">先生紹介</a></li>
+        <li><a href="#">アクセス</a></li>
+      </ul>
+      <a href="#cta" class="nav-cta">体験申込</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-left">
+      <h1 class="hero-vertical-title">
+        着物で<span class="hero-v-accent">、</span><br>
+        自分を<br>纏う。
+      </h1>
+      <div class="hero-bottom">
+        <span class="hero-en">MUSUBI KITSUKE SCHOOL / NIHONBASHI</span>
+        <p class="hero-desc">初めての方でも丁寧に。少人数制で、自分のペースで着物を学べる日本橋の着付け教室。</p>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-image">👘</div>
+      <div class="hero-cta-block">
+        <div class="hero-cta-text">
+          体験レッスン受付中
+          <small>初回 ¥3,300（税込）</small>
+        </div>
+        <a href="#cta" class="btn-kihada">申し込む</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="seasonal">
+    <span class="seasonal-label">今月のおすすめ</span>
+    <div class="seasonal-items">
+      <div class="seasonal-item">単衣の着付けコース 開講中</div>
+      <div class="seasonal-item">夏着物・浴衣体験 受付中</div>
+      <div class="seasonal-item">七五三 お祝い着付け承ります</div>
+    </div>
+  </div>
+
+  <section class="courses">
+    <div class="courses-header">
+      <div class="en">COURSES</div>
+      <h2>コース案内</h2>
+    </div>
+    <div class="course-grid">
+      <div class="course-card" data-num="1">
+        <div class="course-season">初心者向け</div>
+        <div class="course-name">きほんの着付け</div>
+        <div class="course-price">¥19,800</div>
+        <div class="course-duration">全6回 / 各90分</div>
+        <p class="course-desc">着物の畳み方から、一人で着られるようになるまでを丁寧に指導します。</p>
+      </div>
+      <div class="course-card" data-num="2">
+        <div class="course-season">中級者向け</div>
+        <div class="course-name">帯結びマスター</div>
+        <div class="course-price">¥24,800</div>
+        <div class="course-duration">全8回 / 各90分</div>
+        <p class="course-desc">お太鼓・名古屋帯・袋帯まで。様々な帯結びを習得します。</p>
+      </div>
+      <div class="course-card" data-num="3">
+        <div class="course-season">特別コース</div>
+        <div class="course-name">振袖・留袖着付け</div>
+        <div class="course-price">¥38,000</div>
+        <div class="course-duration">全10回 / 各120分</div>
+        <p class="course-desc">フォーマルな場面に対応できる着付けの技術を習得。資格取得も目指せます。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="teacher">
+    <div class="teacher-image">👘</div>
+    <div>
+      <span class="teacher-en">INSTRUCTOR</span>
+      <div class="teacher-name">山村 寿子</div>
+      <div class="teacher-title">着付け講師 / 一般財団法人 日本和装推進協会 認定講師</div>
+      <ul class="teacher-career">
+        <li>京都・西陣の呉服商家に生まれ育つ</li>
+        <li>20代より着付け師として経験を積む</li>
+        <li>着付け技能士1級 取得</li>
+        <li>NHKカルチャー講師歴10年</li>
+        <li>2015年「着付け教室 結」設立</li>
+      </ul>
+      <p class="teacher-message">
+        「着物は難しい」という先入観をなくすことが、私の使命だと思っています。<br><br>
+        一度自分で着られるようになると、着物に対する見方がガラリと変わります。<br>
+        日本の美しい文化を、一人でも多くの方に伝えたいと思っています。
+      </p>
+    </div>
+  </section>
+
+  <section class="gallery">
+    <div class="gallery-strip">
+      <div class="gallery-item">🌸</div>
+      <div class="gallery-item">👘</div>
+      <div class="gallery-item">🎋</div>
+      <div class="gallery-item">🌺</div>
+      <div class="gallery-item">🍁</div>
+    </div>
+  </section>
+
+  <section class="voice">
+    <div class="voice-header">
+      <h2 style="font-size:clamp(1.5rem,3vw,2.5rem);font-weight:400;letter-spacing:0.1em;">生徒の声</h2>
+    </div>
+    <div class="voice-grid">
+      <div class="voice-card"><p class="voice-text">もう着られないと諦めていた母の着物が、自分で着られるようになりました。先生の丁寧な指導のおかげです。着物でのお出かけが楽しみになりました。</p><div class="voice-meta">50代 / 主婦 / Y.Kさん</div></div>
+      <div class="voice-card"><p class="voice-text">初めての着付けで最初は不安でしたが、少人数制なのでわからないことをすぐ聞けて安心でした。今では毎月着物でお出かけしています。</p><div class="voice-meta">30代 / 会社員 / M.Tさん</div></div>
+      <div class="voice-card"><p class="voice-text">娘の成人式に着物を着せてあげたくて入門しました。おかげで当日自分で着付けることができ、涙が止まりませんでした。</p><div class="voice-meta">50代 / 主婦 / N.Iさん</div></div>
+    </div>
+  </section>
+
+  <section class="access">
+    <div>
+      <h2>アクセス</h2>
+      <table class="access-table">
+        <tr><th>教室名</th><td>着付け教室 結（むすび）</td></tr>
+        <tr><th>住所</th><td>東京都中央区日本橋3-2-1 日本橋ビル5F</td></tr>
+        <tr><th>電話</th><td>03-XXXX-XXXX</td></tr>
+        <tr><th>開講時間</th><td>10:00〜12:00 / 13:00〜15:00 / 18:30〜20:30</td></tr>
+        <tr><th>休講日</th><td>毎週月曜日・日曜日</td></tr>
+        <tr><th>アクセス</th><td>東京メトロ日本橋駅 B1出口 徒歩1分</td></tr>
+      </table>
+    </div>
+    <div class="map-area">[ MAP ]</div>
+  </section>
+
+  <section class="cta" id="cta">
+    <div>
+      <h2>まずは、<br>体験から。</h2>
+      <p>初回体験レッスン ¥3,300（税込）<br>着物・帯はこちらで用意します。<br>手ぶらでお越しください。</p>
+      <a href="#" class="btn-white-border">体験レッスンを申し込む</a>
+    </div>
+    <div class="cta-aside">
+      <div class="cta-aside-item"><div class="cta-aside-label">TEL</div><div class="cta-aside-value">03-XXXX-XXXX</div></div>
+      <div class="cta-aside-item"><div class="cta-aside-label">OPEN</div><div class="cta-aside-value">火〜土曜日 / 月3クラス制</div></div>
+      <div class="cta-aside-item"><div class="cta-aside-label">ACCESS</div><div class="cta-aside-value">日本橋駅 B1出口 徒歩1分</div></div>
+    </div>
+  </section>
+
+  <div class="pattern-bar-bottom"></div>
+  <footer>© 2024 着付け教室 結（むすび）. ALL RIGHTS RESERVED.</footer>
+
+</body>
+</html>
